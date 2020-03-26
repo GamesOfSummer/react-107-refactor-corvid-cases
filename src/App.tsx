@@ -1,27 +1,27 @@
 import React, { Component } from "react";
 import { MDBCol, MDBContainer, MDBRow, MDBNavbar, MDBNavbarBrand } from "mdbreact";
 import RestaurantList from './RestaurantList';
-import { restaurant, defaultResturant } from './types';
+import { state, defaultState } from './types';
 
-export interface AppProps { restaurants: [restaurant]; }
-export interface AppState { restaurants: [restaurant]; }
+export interface AppProps { states: [state]; }
+export interface AppState { states: [state]; }
 
 class App extends Component<AppProps, AppState> {
 
   constructor(props: AppProps) {
     super(props);
-    this.state = { restaurants: [defaultResturant()] };
+    this.state = { states: [defaultState()] };
   }
 
   componentDidMount() {
     fetch(
-      'https://s3.amazonaws.com/br-codingexams/restaurants.json'
+      'https://finnhub.io/api/v1/covid19/us?token=bpuf3qvrh5rbbhoiii40'
     )
       .then(resp => {
         return resp.json();
       })
       .then(data => {
-        this.setState({ restaurants: data.restaurants });
+        this.setState({ states: data });
       })
       .catch(error => {
         console.log('Error occured on load.' + error);
@@ -37,10 +37,10 @@ class App extends Component<AppProps, AppState> {
             <MDBCol md="10">
               <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: "#43e895" }}>
                 <MDBNavbarBrand style={{ position: 'absolute', left: '45%' }}>
-                  <strong>Lunch Tyme</strong>
+                  <strong>Corvid Numbers</strong>
                 </MDBNavbarBrand>
               </MDBNavbar>
-              <RestaurantList restaurants={this.state.restaurants} />
+              <RestaurantList states={this.state.states} />
             </MDBCol>
             <MDBCol md="1"></MDBCol>
           </MDBRow>

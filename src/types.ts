@@ -1,13 +1,9 @@
-export interface restaurant {
-    name: string; category: string; backgroundImageURL: string;
-    location: { address: string; city: string; state: string, postalCode: string; lat: number; lng: number; }
-    contact: { formattedPhone: string; twitter: string; }
+export interface state {
+    state: string; case: number; death: number;
 }
 
-export function defaultResturant(): restaurant {
+export function defaultState(): state {
     return {
-        name: '', category: '', backgroundImageURL: '',
-        location: { address: '', city: '', state: '', postalCode: '', lat: 0, lng: 0, },
-        contact: { formattedPhone: '', twitter: '', }
+        state: '', case: 0, death: 0
     }
 }

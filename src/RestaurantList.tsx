@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Card from './Card';
 import { MDBRow, MDBCol } from "mdbreact";
-import { defaultResturant, restaurant } from './types';
+import { defaultState, state } from './types';
 import MapView from './MapView';
 
-export interface RestaurantListProps { restaurants: [restaurant]; }
-export interface RestaurantListState { value: Number | null, restaurant: restaurant }
+export interface RestaurantListProps { states: [state]; }
+export interface RestaurantListState { value: Number | null, state: state }
 
 export default class RestaurantList extends Component<RestaurantListProps, RestaurantListState> {
 
@@ -13,20 +13,20 @@ export default class RestaurantList extends Component<RestaurantListProps, Resta
         super(props);
         this.state = {
             value: null,
-            restaurant: defaultResturant()
+            state: defaultState()
         };
     }
 
     setResturant = (e: any) => {
         const { id } = e.currentTarget;
-        this.setState({ value: id, restaurant: this.selectedResturant(id) });
+        this.setState({ value: id, state: this.selectedResturant(id) });
     }
 
     selectedResturant = (id: any) => {
         if (this.state !== null && !!id) {
-            return (id >= 0) ? this.props.restaurants[id] : defaultResturant();
+            return (id >= 0) ? this.props.states[id] : defaultState();
         }
-        return defaultResturant();
+        return defaultState();
     }
 
     hasASelectedResturant = () => {
@@ -59,14 +59,14 @@ export default class RestaurantList extends Component<RestaurantListProps, Resta
             <div >
                 <MDBRow>
                     <MDBCol md={divNumberLeft as any}>
-                        {this.props.restaurants.map((item, index) => {
+                        {this.props.states.map((item, index) => {
                             return <div key={this.createGuid()} id={index.toString()} onClick={this.setResturant}>
-                                <Card restaurant={item} />
+                                <Card state={item} />
                             </div>;
                         })}
                     </MDBCol>
                     <MDBCol md={divNumberRight as any} className="pl-0">
-                        <MapView restaurant={this.state.restaurant} />
+                        <MapView state={this.state.state} />
                     </MDBCol>
                 </MDBRow>
             </div >

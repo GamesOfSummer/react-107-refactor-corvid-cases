@@ -40,15 +40,11 @@ React 105 - read from an API stream, display data, pass info to another class vi
 
 
 # For Later or Things Missed
-* [ ] strip out google maps - not in the mood to be bothered about public key complains on Github
-* [ ] - Error Boundaries
-* [ ] - add sliding animation 
-* [ ] - find a good font - the font requested (Avernir Next) is a paid font, so I opted to not use it. 
+* [X] strip out google maps - not in the mood to be bothered about public key complains on Github
+* [X] find a better api?
+* [ ] - Error Boundaries with fake api?
 * [ ] - fix `variable as any` if possible
 * [ ] - look into react hooks - as the coupling is weird
 
-* [ ] - Install Redux for state management 
-* [ ] - Get that current restaurant in state
 * [ ] - Install mocha / chai / Sinon / 
-* [ ] - test that state
-* [ ] - add formatters, unit test formatters
+

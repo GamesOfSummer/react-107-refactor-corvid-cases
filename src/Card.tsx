@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { restaurant } from './types';
+import { state } from './types';
 
-interface CardProps { restaurant: restaurant; }
+interface CardProps { state: state; }
 
 export default class Card extends Component<CardProps>{
 
@@ -9,7 +9,7 @@ export default class Card extends Component<CardProps>{
         image: {
             position: 'relative',
             height: '180px',
-            backgroundImage: 'url(' + this.props.restaurant.backgroundImageURL + ')',
+            //backgroundImage: 'url(' + this.props.restaurant.backgroundImageURL + ')',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
             MozBoxShadow: 'inset 0 -10px 50px #000000',
@@ -33,8 +33,8 @@ export default class Card extends Component<CardProps>{
                     <div
                         className="white-text"
                         style={this.style.card as any}>
-                        <strong>{this.props.restaurant.name}</strong><br />
-                        {this.props.restaurant.category}
+                        <strong>{this.props.state.state}</strong><br />
+                        {this.props.state.case}
                     </div>
                 </div>
             </div >
