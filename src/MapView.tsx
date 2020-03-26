@@ -17,9 +17,9 @@ export default class MapView extends Component<MapProps, MapState> {
 
                     </div>
                     <MDBCardHeader color="lighten-1" style={{ backgroundColor: "#34b379" }}>
-                        {state.state}
+                        {/*  {state.state} */}
                         <br />
-                        {state.case}
+
 
                     </MDBCardHeader>
                     <MDBCardBody style={{ paddingLeft: "16px" }}>
