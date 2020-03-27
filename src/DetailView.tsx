@@ -1,23 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { MDBCard, MDBCardBody, MDBCardText, MDBCardHeader } from "mdbreact";
-import { state } from './types';
+import { state, defaultState } from './types';
+import PropTypes from 'prop-types';
 
-export interface MapProps { state: state }
-export interface MapState { state: state }
+export interface DetailProps { state: state }
 
-export default class MapView extends Component<MapProps, MapState> {
 
-    render() {
-        let state = this.props.state;
-
-        return (
+const DetailView = (props: DetailProps) => 
+{
+    return (
             <div >
                 <MDBCard>
                     <div style={{ height: '300px', width: '100w' }}>
 
                     </div>
                     <MDBCardHeader color="lighten-1" style={{ backgroundColor: "#34b379" }}>
-                        {/*  {state.state} */}
+                         {props.state}
                         <br />
 
 
@@ -35,6 +33,9 @@ export default class MapView extends Component<MapProps, MapState> {
                 </MDBCard>
             </div >
         )
-    }
-
 }
+DetailView.propTypes = { props: PropTypes.object };
+DetailView.defaultProps = {
+    props: defaultState()
+  };
+export default DetailView;

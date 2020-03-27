@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { MDBCol, MDBContainer, MDBRow, MDBNavbar, MDBNavbarBrand } from "mdbreact";
-import RestaurantList from './RestaurantList';
+import StateList from './StateList';
 import { state, defaultState } from './types';
 
 export interface AppProps { states: [state]; }
@@ -40,7 +40,7 @@ class App extends Component<AppProps, AppState> {
                   <strong>Corvid Numbers</strong>
                 </MDBNavbarBrand>
               </MDBNavbar>
-              <RestaurantList states={this.state.states} />
+              <StateList states={this.state.states} />
             </MDBCol>
             <MDBCol md="1"></MDBCol>
           </MDBRow>
