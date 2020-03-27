@@ -3,7 +3,7 @@ import { MDBCard, MDBCardBody, MDBCardText, MDBCardHeader } from "mdbreact";
 import { state, defaultState } from './types';
 import PropTypes from 'prop-types';
 
-export interface DetailProps { state: state }
+export interface DetailProps { state: string, death: number, case: number }
 
 
 const DetailView = (props: DetailProps) => 

@@ -8,23 +8,16 @@ import PropTypes from 'prop-types';
 export interface RestaurantListProps { states: [state]; }
 
 const StateList = (props: RestaurantListProps) => {
+    const [currentState, setState] = useState(defaultState());
 
-    const [index, setIndex] = useState(0);
-
-    let setResturant = (e: any) => {
+    let setActiveState = (e: any) => {
         const { id } = e.currentTarget;
-        setIndex(id);
+        setState(props.states[id]);
     }
 
-    let selectedResturant = (): state => {
-        if (index === 0) {
-            return (index >= 0) ? props.states[index] : defaultState();
-        }
-        return defaultState();
-    }
 
     let hasASelectedResturant = (): boolean => {
-        if (index === 0) {
+        if (currentState === defaultState()) {
             return false;
         }
         return true;
@@ -54,13 +47,13 @@ const StateList = (props: RestaurantListProps) => {
             <MDBRow>
                 <MDBCol md={divNumberLeft as any}>
                     {props.states.map((item, index) => {
-                        return <div key={createGuid()} id={index.toString()} onClick={setResturant}>
+                        return <div key={createGuid()} id={index.toString()} onClick={setActiveState}>
                             <Card state={item} />
                         </div>;
                     })}
                 </MDBCol>
                 <MDBCol md={divNumberRight as any} className="pl-0">
-                    {/* <DetailView state={ props: {defaultState} } /> */}
+                    <DetailView {  ...currentState } />
                 </MDBCol>
             </MDBRow>
         </div >
