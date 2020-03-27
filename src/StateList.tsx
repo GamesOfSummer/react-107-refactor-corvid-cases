@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import Card from './Card';
 import { MDBRow, MDBCol } from "mdbreact";
 import { defaultState, state } from './types';
-import MapView from './DetailView';
+import DetailView from './DetailView';
 import PropTypes from 'prop-types';
 
 export interface RestaurantListProps { states: [state]; }
-export interface RestaurantListState { value: Number | null, state: state }
 
-const StateList = (props: RestaurantListProps, state: RestaurantListState) => {
+const StateList = (props: RestaurantListProps) => {
 
     const [index, setIndex] = useState(0);
 
@@ -17,9 +16,9 @@ const StateList = (props: RestaurantListProps, state: RestaurantListState) => {
         setIndex(id);
     }
 
-    let selectedResturant = (id: any): state => {
+    let selectedResturant = (): state => {
         if (index === 0) {
-            return (id >= 0) ? props.states[id] : defaultState();
+            return (index >= 0) ? props.states[index] : defaultState();
         }
         return defaultState();
     }
@@ -61,7 +60,7 @@ const StateList = (props: RestaurantListProps, state: RestaurantListState) => {
                     })}
                 </MDBCol>
                 <MDBCol md={divNumberRight as any} className="pl-0">
-                    <MapView state={state.state} />
+                    {/* <DetailView state={ props: {defaultState} } /> */}
                 </MDBCol>
             </MDBRow>
         </div >
