@@ -1,5 +1,5 @@
 # React 107
-React 107 - Refactor app to use functional components, hooks, error boundaries, and proptypes
+React 107 - Refactor app to use functional components, hooks, error boundaries, and prop types
 
 ### Source code for a website that consumes a CORVID-19 API
 
@@ -11,10 +11,11 @@ React 107 - Refactor app to use functional components, hooks, error boundaries, 
 
 # Checklist
 
-* [X] - find a better api?
+* [X] - find a better source for data
 * [X] - get everything into functional classes
 * [X] - use hooks for state
-* [ ] - Error Boundaries with fake api?
+* [ ] - install lodash
+* [ ] - Error Boundaries
 * [ ] - fix `variable as any` if possible
 * [ ] - install redux for state management
 * [ ] - Install mocha / chai / Sinon / 

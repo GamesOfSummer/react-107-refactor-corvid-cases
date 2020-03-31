@@ -21,7 +21,8 @@ class App extends Component<AppProps, AppState> {
         return resp.json();
       })
       .then(data => {
-        this.setState({ states: data });
+        const sortedData = data.sort(function(a : state, b : state){return  b.case - a.case})
+        this.setState({ states: sortedData });
       })
       .catch(error => {
         console.log('Error occured on load.' + error);
