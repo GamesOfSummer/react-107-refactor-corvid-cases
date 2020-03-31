@@ -15,15 +15,12 @@ const StateList = (props: RestaurantListProps) => {
         setState(props.states[id]);
     }
 
-
     let hasASelectedResturant = (): boolean => {
         if (currentState === defaultState()) {
             return false;
         }
         return true;
     }
-
-
 
     //https://www.c-sharpcorner.com/blogs/generate-guid-using-javascript1
     let createGuid = () => {

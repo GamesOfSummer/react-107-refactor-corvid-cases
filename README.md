@@ -1,20 +1,21 @@
 # React 107
 React 107 - Refactor app to use functional components, hooks, error boundaries, and proptypes
 
-Already uses Typescript
-Uses a CORVID-19 API for data that I can use
+### Source code for a website that consumes a CORVID-19 API
 
 # Summary
 
 * Tools used - Visual Studio Code, SmartGit, a Pomodoro timer
-
+* React, Material Design for Bootstrap
+* Details - mostly in Typescript - uses functional components, hooks
 
 # Checklist
 
 * [X] - find a better api?
 * [X] - get everything into functional classes
-* [ ] - use hooks for state
+* [X] - use hooks for state
 * [ ] - Error Boundaries with fake api?
 * [ ] - fix `variable as any` if possible
+* [ ] - install redux for state management
 * [ ] - Install mocha / chai / Sinon / 
 

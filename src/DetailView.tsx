@@ -22,6 +22,7 @@ const DetailView = (props: DetailProps) =>
                     </MDBCardHeader>
                     <MDBCardBody style={{ paddingLeft: "16px" }}>
                         <MDBCardText >
+                        Deaths - {props.death} <br />
                             {/* {restaurant.location.address} <br />
                             {restaurant.location.city}, {restaurant.location.state} {restaurant.location.postalCode}
                             <br /><br />
