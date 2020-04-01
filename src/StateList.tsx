@@ -35,8 +35,8 @@ const StateList = (props: RestaurantListProps) => {
     let divNumberRight = "0";
 
     if (hasASelectedResturant()) {
-        divNumberLeft = "6";
-        divNumberRight = "6";
+        divNumberLeft = "4";
+        divNumberRight = "8";
     }
 
     return (
@@ -50,7 +50,7 @@ const StateList = (props: RestaurantListProps) => {
                     })}
                 </MDBCol>
                 <MDBCol md={divNumberRight as any} className="pl-0">
-                    <DetailView {  ...currentState } />
+                    <DetailView {...currentState} />
                 </MDBCol>
             </MDBRow>
         </div >

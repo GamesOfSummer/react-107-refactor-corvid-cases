@@ -7,12 +7,11 @@ export interface DetailProps { state: string, death: number, case: number, updat
 
 function Details(props : any) : any {
     const death = props.props.death;
-    console.log('death', props);
-
+  
     if (death !== 0) {    
         return <div>
             <span> Deaths - {props.props.death} </span><br/>
-            <span>  Last Updated - {props.props.updated} </span>
+            <span> Last Updated - {props.props.updated} </span>
         </div>
    }
 
@@ -24,8 +23,7 @@ const DetailView = (props: DetailProps) =>
     return (
             <div >
                 <MDBCard>
-                    <div style={{ height: '300px', width: '100w' }}>
-
+                    <div >
                     </div>
                     <MDBCardHeader color="lighten-1" style={{ backgroundColor: "#34b379" }}>
                          {props.state}

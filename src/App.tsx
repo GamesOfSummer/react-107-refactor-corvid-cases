@@ -21,7 +21,7 @@ class App extends Component<AppProps, AppState> {
         return resp.json();
       })
       .then(data => {
-        const sortedData = data.sort(function(a : state, b : state){return  b.case - a.case})
+        const sortedData = data.sort(function (a: state, b: state) { return b.case - a.case })
         this.setState({ states: sortedData });
       })
       .catch(error => {
@@ -34,16 +34,21 @@ class App extends Component<AppProps, AppState> {
       <div className="App">
         <MDBContainer fluid>
           <MDBRow>
-            <MDBCol md="1"></MDBCol>
-            <MDBCol md="10">
+            <MDBCol md="2"></MDBCol>
+            <MDBCol md="8">
               <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: "#43e895" }}>
-                <MDBNavbarBrand style={{ position: 'absolute', left: '45%' }}>
-                  <strong>Corvid Numbers</strong>
+                <MDBNavbarBrand style={{ position: 'absolute', left: '25%' }}>
+                  <strong>Current Corvid Numbers</strong>
                 </MDBNavbarBrand>
               </MDBNavbar>
-              <StateList states={this.state.states} />
+
+              <div style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "650px" }}>
+                <StateList states={this.state.states} />
+              </div>
+
+
             </MDBCol>
-            <MDBCol md="1"></MDBCol>
+            <MDBCol md="2"></MDBCol>
           </MDBRow>
         </MDBContainer>
       </div>
