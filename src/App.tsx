@@ -17,6 +17,8 @@ const App = (props: AppProps) => {
 
 
   const [currentTotal, setTotal] = useState(0);
+  const [currentDeath, setDeath] = useState(0);
+
 
   let setActiveState = (e: any) => {
     const { id } = e.currentTarget;
@@ -55,6 +57,9 @@ const App = (props: AppProps) => {
         let total = sortedData.reduce((a : number, b : state) => a + b.case, 0);        
         setTotal(total);
 
+        let deaths = sortedData.reduce((a : number, b : state) => a + b.death, 0);        
+        setDeath(deaths);
+
       })
       .catch(error => {
         console.log('Error occured on load.' + error);
@@ -80,7 +85,7 @@ const App = (props: AppProps) => {
           <MDBCol md="8">
             <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: "#43e895" }}>
               <MDBNavbarBrand style={{ position: 'absolute', left: '25%' }}>
-                <strong>Current Corvid Numbers || Total Cases {currentTotal}</strong>
+  <strong>Total Cases {currentTotal} || Total Deathes {currentDeath}</strong>
               </MDBNavbarBrand>
             </MDBNavbar>
 

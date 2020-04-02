@@ -16,7 +16,8 @@ React 107 - Refactor app to use functional components, hooks, error boundaries, 
 * [X] - use hooks for state
 * [ ] - Make it more clear that you click a state
 * [ ] - Error Boundaries
-* [ ] - Total for deaths / cases
+* [ ] - Number formatter
+* [X] - Total for deaths / cases
 * [ ] - install lodash
 * [ ] - fix `variable as any` if possible
 * [ ] - install redux for state management
