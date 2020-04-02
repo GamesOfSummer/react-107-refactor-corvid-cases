@@ -3,7 +3,8 @@ import { MDBCol, MDBContainer, MDBRow, MDBNavbar, MDBNavbarBrand } from "mdbreac
 import { state, defaultState } from './types';
 import DetailView from './DetailView';
 import Card from './Card';
-import {fn} from './util'
+import { fn } from './util'
+import ErrorBoundary from './ErrorBoundary';
 
 export interface AppProps { states: [state]; }
 export interface AppState { states: [state]; }
@@ -20,7 +21,12 @@ const App = (props: AppProps) => {
   const [currentTotal, setTotal] = useState(0);
   const [currentDeath, setDeath] = useState(0);
 
-  
+  const [hasError, setError] = useState(false);
+  useEffect(() => {
+    if (hasError === true) {
+      throw new Error('I crashed');
+    }
+  }, [hasError]);
 
   let setActiveState = (e: any) => {
     const { id } = e.currentTarget;
@@ -56,15 +62,16 @@ const App = (props: AppProps) => {
         setStates({ states: sortedData });
         setState({ ...sortedData[0] });
 
-        let total = sortedData.reduce((a : number, b : state) => a + b.case, 0);        
+        let total = sortedData.reduce((a: number, b: state) => a + b.case, 0);
         setTotal(total);
 
-        let deaths = sortedData.reduce((a : number, b : state) => a + b.death, 0);        
+        let deaths = sortedData.reduce((a: number, b: state) => a + b.death, 0);
         setDeath(deaths);
 
       })
       .catch(error => {
         console.log('Error occured on load.' + error);
+        setError(true);
       });
   }
 
@@ -78,39 +85,44 @@ const App = (props: AppProps) => {
     divNumberRight = "8";
   }
 
+
   return (
 
     <div className="App">
       <MDBContainer fluid>
         <MDBRow>
-          <MDBCol md="2"></MDBCol>
-          <MDBCol md="8">
-            <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: "#43e895" }}>
-              <MDBNavbarBrand style={{ position: 'absolute', left: '25%' }}>
-  <strong>Total Cases {fn(currentTotal)} || Total Deathes {fn(currentDeath)}</strong>
-              </MDBNavbarBrand>
-            </MDBNavbar>
 
-            <div style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "650px" }}>
-              <div >
-                <MDBRow>
-                  <MDBCol md={divNumberLeft as any}>
-                    {currentStates.states.map((item, index) => {
-                      return <div key={createGuid()} id={index.toString()} onClick={setActiveState}>
-                        <Card state={item} />
-                      </div>;
-                    })}
-                  </MDBCol>
-                  <MDBCol md={divNumberRight as any} className="pl-0">
-                    <DetailView {...currentState} />
-                  </MDBCol>
-                </MDBRow>
-              </div >
-            </div>
+          <ErrorBoundary>
 
+            <MDBCol md="2"></MDBCol>
+            <MDBCol md="8">
+              <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: "#43e895" }}>
+                <MDBNavbarBrand style={{ position: 'absolute', left: '25%' }}>
+                  <strong>Total Cases {fn(currentTotal)} || Total Deathes {fn(currentDeath)}</strong>
+                </MDBNavbarBrand>
+              </MDBNavbar>
 
-          </MDBCol>
-          <MDBCol md="2"></MDBCol>
+              <div style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "650px" }}>
+                <div >
+                  <MDBRow>
+                    <MDBCol md={divNumberLeft as any}>
+                      {currentStates.states.map((item, index) => {
+                        return <div key={createGuid()} id={index.toString()} onClick={setActiveState}>
+                          <Card state={item} />
+                        </div>;
+                      })}
+                    </MDBCol>
+                    <MDBCol md={divNumberRight as any} className="pl-0">
+                      <DetailView {...currentState} />
+                    </MDBCol>
+                  </MDBRow>
+                </div >
+              </div>
+
+            </MDBCol>
+            <MDBCol md="2"></MDBCol>
+
+          </ErrorBoundary>
         </MDBRow>
       </MDBContainer>
     </div>
