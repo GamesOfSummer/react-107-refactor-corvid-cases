@@ -2,6 +2,7 @@ import React from 'react';
 import { MDBCard, MDBCardBody, MDBCardText, MDBCardHeader } from "mdbreact";
 import { defaultState } from './types';
 import PropTypes from 'prop-types';
+import {fn} from './util'
 
 export interface DetailProps { state: string, death: number, case: number, updated: string }
 
@@ -10,7 +11,7 @@ function Details(props : any) : any {
   
     if (death !== 0) {    
         return <div>
-            <span> Deaths - {props.props.death} </span><br/>
+            <span> Deaths - {fn(props.props.death)} </span><br/>
             <span> Last Updated - {props.props.updated} </span>
         </div>
    }

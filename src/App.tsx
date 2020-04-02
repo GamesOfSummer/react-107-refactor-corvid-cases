@@ -3,6 +3,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBNavbar, MDBNavbarBrand } from "mdbreac
 import { state, defaultState } from './types';
 import DetailView from './DetailView';
 import Card from './Card';
+import {fn} from './util'
 
 export interface AppProps { states: [state]; }
 export interface AppState { states: [state]; }
@@ -19,6 +20,7 @@ const App = (props: AppProps) => {
   const [currentTotal, setTotal] = useState(0);
   const [currentDeath, setDeath] = useState(0);
 
+  
 
   let setActiveState = (e: any) => {
     const { id } = e.currentTarget;
@@ -85,7 +87,7 @@ const App = (props: AppProps) => {
           <MDBCol md="8">
             <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: "#43e895" }}>
               <MDBNavbarBrand style={{ position: 'absolute', left: '25%' }}>
-  <strong>Total Cases {currentTotal} || Total Deathes {currentDeath}</strong>
+  <strong>Total Cases {fn(currentTotal)} || Total Deathes {fn(currentDeath)}</strong>
               </MDBNavbarBrand>
             </MDBNavbar>
 
