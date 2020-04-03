@@ -8,7 +8,7 @@ import ErrorBoundary from './ErrorBoundary';
 
 
 // Redux things
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
 import { store } from './redux/store';
 
 export interface AppProps { states: [state]; }
