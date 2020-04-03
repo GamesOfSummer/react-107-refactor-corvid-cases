@@ -6,6 +6,11 @@ import Card from './Card';
 import { fn } from './util'
 import ErrorBoundary from './ErrorBoundary';
 
+
+// Redux things
+import { connect } from 'react-redux';
+import { store } from './redux/store';
+
 export interface AppProps { states: [state]; }
 export interface AppState { states: [state]; }
 
@@ -15,6 +20,7 @@ const App = (props: AppProps) => {
   const [currentState, setState] = useState(defaultState());
   useEffect(() => {
     fetchAPI();
+    console.log(store.getState())
   }, []);
 
 
