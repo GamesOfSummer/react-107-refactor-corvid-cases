@@ -64,6 +64,7 @@ const App = (props: AppProps) => {
   let setReduxArray = () => {
     let holder = store.getState().states.map((x) => {
       return {
+        'index': x.index,
         'state': x.state,
         'case': x.case,
         'death': x.death,
@@ -87,7 +88,19 @@ const App = (props: AppProps) => {
       })
       .then(data => {
         const sortedData = data.sort(function (a: state, b: state) { return b.case - a.case })
-        setStates({ states: sortedData });
+
+
+        let holder = sortedData.map((x: state) => {
+          return {
+            'index': x.index,
+            'state': x.state,
+            'case': x.case,
+            'death': x.death,
+            'updated': x.updated.toString()
+          };
+        });
+
+        setStates({ states: holder });
         setState({ ...sortedData[0] });
 
         let total = sortedData.reduce((a: number, b: state) => a + b.case, 0);
@@ -135,18 +148,6 @@ const App = (props: AppProps) => {
                   <MDBRow>
                     <MDBCol md={divNumberLeft as any}>
 
-
-                      <ul>
-
-                        {currentReduxState.map((tasks: state) => {
-                          return <li key={tasks.state}>{tasks.state}</li>;
-                        })}
-                      </ul>
-
-
-
-
-
                       <div><span>Click on a state below to view their data:</span></div><br />
                       {currentStates.states.map((item, index) => {
                         return <div key={createGuid()} id={index.toString()} onClick={setActiveState}>
@@ -155,6 +156,12 @@ const App = (props: AppProps) => {
                       })}
                     </MDBCol>
                     <MDBCol md={divNumberRight as any} className="pl-0">
+
+                      {currentReduxState.map((state: state) => {
+                        return <DetailView {...state} />
+
+                      })}
+
                       <DetailView {...currentState} />
                     </MDBCol>
                   </MDBRow>

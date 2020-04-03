@@ -12,6 +12,7 @@ function Details(props: any): any {
     if (death !== 0) {
         return (
             <React.Fragment>
+                <span> Cases - {fn(props.props.case)} </span><br />
                 <span> Deaths - {fn(props.props.death)} </span><br />
                 <span> Last Updated - {fd(props.props.updated)} </span>
             </React.Fragment>
@@ -29,13 +30,10 @@ const DetailView = (props: DetailProps) => {
                 </div>
                 <MDBCardHeader color="lighten-1" style={{ backgroundColor: "#34b379" }}>
                     {props.state}
-                    <br />
                 </MDBCardHeader>
                 <MDBCardBody style={{ paddingLeft: "16px" }}>
                     <MDBCardText >
                         <Details props={props} />
-
-
                     </MDBCardText>
                 </MDBCardBody>
             </MDBCard>

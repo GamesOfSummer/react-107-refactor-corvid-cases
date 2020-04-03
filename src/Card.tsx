@@ -1,7 +1,7 @@
 import React from 'react';
 import { MDBIcon } from "mdbreact";
 import { state } from './types';
-import {fn} from './util'
+import { fn } from './util'
 
 interface CardProps { state: state; }
 
@@ -22,9 +22,7 @@ const Card = (props: CardProps) => {
             <div className="h-100 d-inline-block align-text-bottom">
                 <div
                     style={style.card as any}>
-                    <strong>{props.state.state}</strong><br />
-                    { fn (props.state.case) }
-                    {' '} <MDBIcon icon="adjust" />
+                    <MDBIcon icon="adjust" /> <strong>{props.state.state}</strong> - {fn(props.state.case)} -
                 </div>
             </div>
         </div >
