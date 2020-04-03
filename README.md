@@ -7,20 +7,6 @@ React 107 - Refactor app to use functional components, hooks, error boundaries, 
 
 * Tools used - Visual Studio Code, SmartGit, a Pomodoro timer
 * React, Material Design for Bootstrap
-* Details - mostly in Typescript - uses functional components, hooks
+* Details - mostly in Typescript - uses Redux, luxon.js, functional components, hooks
 
-# Checklist
-
-* [X] - find a better source for data
-* [X] - get everything into functional classes
-* [X] - use hooks for state
-* [X] - Make it more clear that you click a state
-* [X] - Error Boundaries
-* [X] - Number formatter + util fxn
-* [X] - Date formatter
-* [X] - Total for deaths / cases
-* [ ] - install lodash
-* [ ] - fix `variable as any` if possible
-* [ ] - install redux for state management
-* [ ] - Install mocha / chai / Sinon / 
 

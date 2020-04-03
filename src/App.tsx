@@ -7,9 +7,12 @@ import { fn } from './util'
 import ErrorBoundary from './ErrorBoundary';
 
 
+
+
 // Redux things
 //import { connect } from 'react-redux';
 import { store } from './redux/store';
+import { addNewTask } from './redux/actions/actions';
 
 export interface AppProps { states: [state]; }
 export interface AppState { states: [state]; }
@@ -20,7 +23,6 @@ const App = (props: AppProps) => {
   const [currentState, setState] = useState(defaultState());
   useEffect(() => {
     fetchAPI();
-    console.log(store.getState())
   }, []);
 
 
@@ -37,6 +39,8 @@ const App = (props: AppProps) => {
   let setActiveState = (e: any) => {
     const { id } = e.currentTarget;
     setState(currentStates.states[id]);
+    store.dispatch(addNewTask('message'));
+    console.log(store.getState())
   }
 
   let hasASelectedResturant = (): boolean => {
@@ -46,6 +50,8 @@ const App = (props: AppProps) => {
     return true;
   }
 
+
+
   //https://www.c-sharpcorner.com/blogs/generate-guid-using-javascript1
   let createGuid = () => {
     function S4() {
@@ -53,6 +59,18 @@ const App = (props: AppProps) => {
     }
     return (S4() + S4() + "-" + S4() + "-4" + S4().substr(0, 3) + "-" + S4() + "-" + S4() + S4() + S4()).toLowerCase();
   }
+
+
+
+  let Store = (): state[] => {
+    const death = store.getState().states;
+
+    console.log(death);
+
+    return [];
+  }
+
+
 
 
   let fetchAPI = () => {
@@ -104,7 +122,7 @@ const App = (props: AppProps) => {
             <MDBCol md="8">
               <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: "#43e895" }}>
                 <MDBNavbarBrand style={{ position: 'absolute', left: '25%' }}>
-                  <strong>Total Cases {fn(currentTotal)} || Total Deathes {fn(currentDeath)}</strong>
+                  <strong>Total Cases {fn(currentTotal)} || Total Deaths {fn(currentDeath)}</strong>
                 </MDBNavbarBrand>
               </MDBNavbar>
 
@@ -112,6 +130,19 @@ const App = (props: AppProps) => {
                 <div >
                   <MDBRow>
                     <MDBCol md={divNumberLeft as any}>
+
+                      {/* 
+                      <ul>
+
+                        {Store.map((tasks: any) => {
+                          return <li key={tasks.index}>{tasks.text}</li>;
+                        })}
+                      </ul> */}
+
+
+
+
+
                       <div><span>Click on a state below to view their data:</span></div><br />
                       {currentStates.states.map((item, index) => {
                         return <div key={createGuid()} id={index.toString()} onClick={setActiveState}>
