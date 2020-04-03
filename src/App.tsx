@@ -7,8 +7,6 @@ import { fn } from './util'
 import ErrorBoundary from './ErrorBoundary';
 
 
-
-
 // Redux things
 //import { connect } from 'react-redux';
 import { store } from './redux/store';
@@ -40,6 +38,8 @@ const App = (props: AppProps) => {
     const { id } = e.currentTarget;
     setState(currentStates.states[id]);
     store.dispatch(addNewTask('message'));
+    setReduxArray();
+
     console.log(store.getState())
   }
 
@@ -51,7 +51,6 @@ const App = (props: AppProps) => {
   }
 
 
-
   //https://www.c-sharpcorner.com/blogs/generate-guid-using-javascript1
   let createGuid = () => {
     function S4() {
@@ -61,13 +60,18 @@ const App = (props: AppProps) => {
   }
 
 
+  const [currentReduxState, setReduxState] = useState([defaultState()]);
+  let setReduxArray = () => {
+    let holder = store.getState().states.map((x) => {
+      return {
+        'state': x.state,
+        'case': x.case,
+        'death': x.death,
+        'updated': x.updated.toDateString()
+      };
+    });
 
-  let Store = (): state[] => {
-    const death = store.getState().states;
-
-    console.log(death);
-
-    return [];
+    setReduxState(holder);
   }
 
 
@@ -131,13 +135,13 @@ const App = (props: AppProps) => {
                   <MDBRow>
                     <MDBCol md={divNumberLeft as any}>
 
-                      {/* 
+
                       <ul>
 
-                        {Store.map((tasks: any) => {
-                          return <li key={tasks.index}>{tasks.text}</li>;
+                        {currentReduxState.map((tasks: state) => {
+                          return <li key={tasks.state}>{tasks.state}</li>;
                         })}
-                      </ul> */}
+                      </ul>
 
 
 
