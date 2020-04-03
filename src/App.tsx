@@ -106,6 +106,7 @@ const App = (props: AppProps) => {
                 <div >
                   <MDBRow>
                     <MDBCol md={divNumberLeft as any}>
+                      <div><span>Click on a state below to view their data:</span></div><br />
                       {currentStates.states.map((item, index) => {
                         return <div key={createGuid()} id={index.toString()} onClick={setActiveState}>
                           <Card state={item} />

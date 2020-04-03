@@ -14,8 +14,8 @@ React 107 - Refactor app to use functional components, hooks, error boundaries, 
 * [X] - find a better source for data
 * [X] - get everything into functional classes
 * [X] - use hooks for state
-* [ ] - Make it more clear that you click a state
-* [ ] - Error Boundaries
+* [X] - Make it more clear that you click a state
+* [X] - Error Boundaries
 * [X] - Number formatter + util fxn
 * [X] - Date formatter
 * [X] - Total for deaths / cases
