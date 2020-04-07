@@ -11,6 +11,7 @@ import ErrorBoundary from './ErrorBoundary';
 //import { connect } from 'react-redux';
 import { store } from './redux/store';
 import { addNewTask } from './redux/actions/actions';
+import useAPIData from './useAPIData';
 
 export interface AppProps { states: [state]; }
 export interface AppState { states: [state]; }
@@ -76,107 +77,88 @@ const App = (props: AppProps) => {
   }
 
 
-
-
   let fetchAPI = () => {
+    try {
+      const sortedData = await useAPIData();
 
-    fetch(
-      'https://finnhub.io/api/v1/covid19/us?token=bq2ft1nrh5rb332ppnug'
-    )
-      .then(resp => {
-        return resp.json();
-      })
-      .then(data => {
-        const sortedData = data.sort(function (a: state, b: state) { return b.case - a.case })
+      let total = sortedData.reduce((a: number, b: state) => a + b.case, 0);
+      setTotal(total);
+
+      let deaths = sortedData.reduce((a: number, b: state) => a + b.death, 0);
+      setDeath(deaths);
 
 
-        let holder = sortedData.map((x: state) => {
-          return {
-            'index': x.index,
-            'state': x.state,
-            'case': x.case,
-            'death': x.death,
-            'updated': x.updated.toString()
-          };
-        });
+      setStates({ states: sortedData });
+      setState({ ...sortedData[0] });
 
-        setStates({ states: holder });
-        setState({ ...sortedData[0] });
+    }
+    catch (error) {
+      console.log('Error occured on load.' + error);
+      setError(true);
+    };
 
-        let total = sortedData.reduce((a: number, b: state) => a + b.case, 0);
-        setTotal(total);
 
-        let deaths = sortedData.reduce((a: number, b: state) => a + b.death, 0);
-        setDeath(deaths);
 
-      })
-      .catch(error => {
-        console.log('Error occured on load.' + error);
-        setError(true);
-      });
+
+    let divNumberLeft = "12";
+    let divNumberRight = "0";
+
+    if (hasASelectedResturant()) {
+      divNumberLeft = "4";
+      divNumberRight = "8";
+    }
+
+
+    return (
+
+      <div className="App">
+        <MDBContainer fluid>
+          <MDBRow>
+
+            <ErrorBoundary>
+
+              <MDBCol md="2"></MDBCol>
+              <MDBCol md="8">
+                <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: "#43e895" }}>
+                  <MDBNavbarBrand style={{ position: 'absolute', left: '25%' }}>
+                    <strong>Total Cases {fn(currentTotal)} || Total Deaths {fn(currentDeath)}</strong>
+                  </MDBNavbarBrand>
+                </MDBNavbar>
+
+                <div style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "650px" }}>
+                  <div >
+                    <MDBRow>
+                      <MDBCol md={divNumberLeft as any}>
+
+                        <div><span>Click on a state below to view their data:</span></div><br />
+                        {currentStates.states.map((item, index) => {
+                          return <div key={createGuid()} id={index.toString()} onClick={setActiveState}>
+                            <Card state={item} />
+                          </div>;
+                        })}
+                      </MDBCol>
+                      <MDBCol md={divNumberRight as any} className="pl-0">
+
+                        {currentReduxState.map((state: state) => {
+                          return <DetailView {...state} />
+
+                        })}
+
+                        <DetailView {...currentState} />
+                      </MDBCol>
+                    </MDBRow>
+                  </div >
+                </div>
+
+              </MDBCol>
+              <MDBCol md="2"></MDBCol>
+
+            </ErrorBoundary>
+          </MDBRow>
+        </MDBContainer>
+      </div>
+    );
+
   }
 
-
-
-  let divNumberLeft = "12";
-  let divNumberRight = "0";
-
-  if (hasASelectedResturant()) {
-    divNumberLeft = "4";
-    divNumberRight = "8";
-  }
-
-
-  return (
-
-    <div className="App">
-      <MDBContainer fluid>
-        <MDBRow>
-
-          <ErrorBoundary>
-
-            <MDBCol md="2"></MDBCol>
-            <MDBCol md="8">
-              <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: "#43e895" }}>
-                <MDBNavbarBrand style={{ position: 'absolute', left: '25%' }}>
-                  <strong>Total Cases {fn(currentTotal)} || Total Deaths {fn(currentDeath)}</strong>
-                </MDBNavbarBrand>
-              </MDBNavbar>
-
-              <div style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "650px" }}>
-                <div >
-                  <MDBRow>
-                    <MDBCol md={divNumberLeft as any}>
-
-                      <div><span>Click on a state below to view their data:</span></div><br />
-                      {currentStates.states.map((item, index) => {
-                        return <div key={createGuid()} id={index.toString()} onClick={setActiveState}>
-                          <Card state={item} />
-                        </div>;
-                      })}
-                    </MDBCol>
-                    <MDBCol md={divNumberRight as any} className="pl-0">
-
-                      {currentReduxState.map((state: state) => {
-                        return <DetailView {...state} />
-
-                      })}
-
-                      <DetailView {...currentState} />
-                    </MDBCol>
-                  </MDBRow>
-                </div >
-              </div>
-
-            </MDBCol>
-            <MDBCol md="2"></MDBCol>
-
-          </ErrorBoundary>
-        </MDBRow>
-      </MDBContainer>
-    </div>
-  );
-
-}
-
-export default App;
+  export default App;
