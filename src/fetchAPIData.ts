@@ -1,6 +1,7 @@
 import { state } from './types';
 
-let useAPIData = (): Promise => {
+async function fetchAPIData(): Promise<any> {
+    //let useAPIData = (): Promise<Array<state>> => {
 
     fetch(
         'https://finnhub.io/api/v1/covid19/us?token=bq2ft1nrh5rb332ppnug'
@@ -10,7 +11,6 @@ let useAPIData = (): Promise => {
         })
         .then(data => {
             const sortedData = data.sort(function (a: state, b: state) { return b.case - a.case })
-
 
             return sortedData.map((x: state) => {
                 return {
@@ -26,7 +26,8 @@ let useAPIData = (): Promise => {
         .catch(error => {
             console.log('Error occured on load.' + error);
             throw new Error();
-        }).finally();
+        })
+
 }
 
-export default useAPIData;
+export default fetchAPIData;

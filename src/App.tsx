@@ -11,29 +11,27 @@ import ErrorBoundary from './ErrorBoundary';
 //import { connect } from 'react-redux';
 import { store } from './redux/store';
 import { addNewTask } from './redux/actions/actions';
-import useAPIData from './useAPIData';
+import fetchAPIData from './fetchAPIData';
 
-export interface AppProps { states: [state]; }
 export interface AppState { states: [state]; }
 
-const App = (props: AppProps) => {
+const App = () => {
 
   const [currentStates, setStates] = useState({ states: [defaultState()] });
   const [currentState, setState] = useState(defaultState());
   useEffect(() => {
     fetchAPI();
-  }, []);
-
+  });
 
   const [currentTotal, setTotal] = useState(0);
   const [currentDeath, setDeath] = useState(0);
 
   const [hasError, setError] = useState(false);
-  useEffect(() => {
-    if (hasError === true) {
-      throw new Error('I crashed');
-    }
-  }, [hasError]);
+  // useEffect(() => {
+  //   if (hasError === true) {
+  //     throw new Error('I crashed');
+  //   }
+  // });
 
   let setActiveState = (e: any) => {
     const { id } = e.currentTarget;
@@ -77,88 +75,82 @@ const App = (props: AppProps) => {
   }
 
 
-  let fetchAPI = () => {
+  async function fetchAPI() {
     try {
-      const sortedData = await useAPIData();
+      const sortedData = await fetchAPIData();
 
       let total = sortedData.reduce((a: number, b: state) => a + b.case, 0);
       setTotal(total);
-
       let deaths = sortedData.reduce((a: number, b: state) => a + b.death, 0);
       setDeath(deaths);
 
-
       setStates({ states: sortedData });
       setState({ ...sortedData[0] });
-
     }
     catch (error) {
       console.log('Error occured on load.' + error);
       setError(true);
     };
 
-
-
-
-    let divNumberLeft = "12";
-    let divNumberRight = "0";
-
-    if (hasASelectedResturant()) {
-      divNumberLeft = "4";
-      divNumberRight = "8";
-    }
-
-
-    return (
-
-      <div className="App">
-        <MDBContainer fluid>
-          <MDBRow>
-
-            <ErrorBoundary>
-
-              <MDBCol md="2"></MDBCol>
-              <MDBCol md="8">
-                <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: "#43e895" }}>
-                  <MDBNavbarBrand style={{ position: 'absolute', left: '25%' }}>
-                    <strong>Total Cases {fn(currentTotal)} || Total Deaths {fn(currentDeath)}</strong>
-                  </MDBNavbarBrand>
-                </MDBNavbar>
-
-                <div style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "650px" }}>
-                  <div >
-                    <MDBRow>
-                      <MDBCol md={divNumberLeft as any}>
-
-                        <div><span>Click on a state below to view their data:</span></div><br />
-                        {currentStates.states.map((item, index) => {
-                          return <div key={createGuid()} id={index.toString()} onClick={setActiveState}>
-                            <Card state={item} />
-                          </div>;
-                        })}
-                      </MDBCol>
-                      <MDBCol md={divNumberRight as any} className="pl-0">
-
-                        {currentReduxState.map((state: state) => {
-                          return <DetailView {...state} />
-
-                        })}
-
-                        <DetailView {...currentState} />
-                      </MDBCol>
-                    </MDBRow>
-                  </div >
-                </div>
-
-              </MDBCol>
-              <MDBCol md="2"></MDBCol>
-
-            </ErrorBoundary>
-          </MDBRow>
-        </MDBContainer>
-      </div>
-    );
-
   }
 
-  export default App;
+  let divNumberLeft = "12";
+  let divNumberRight = "0";
+
+  if (hasASelectedResturant()) {
+    divNumberLeft = "4";
+    divNumberRight = "8";
+  }
+
+
+  return (
+    <div className="App">
+      <MDBContainer fluid>
+        <MDBRow>
+
+          <ErrorBoundary>
+
+            <MDBCol md="2"></MDBCol>
+            <MDBCol md="8">
+              <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: "#43e895" }}>
+                <MDBNavbarBrand style={{ position: 'absolute', left: '25%' }}>
+                  <strong>Total Cases {fn(currentTotal)} || Total Deaths {fn(currentDeath)}</strong>
+                </MDBNavbarBrand>
+              </MDBNavbar>
+
+              <div style={{ overflowX: "hidden", overflowY: "scroll", maxHeight: "650px" }}>
+                <div >
+                  <MDBRow>
+                    <MDBCol md={divNumberLeft as any}>
+
+                      <div><span>Click on a state below to view their data:</span></div><br />
+                      {currentStates.states.map((item, index) => {
+                        return <div key={createGuid()} id={index.toString()} onClick={setActiveState}>
+                          <Card state={item} />
+                        </div>;
+                      })}
+                    </MDBCol>
+                    <MDBCol md={divNumberRight as any} className="pl-0">
+
+                      {currentReduxState.map((state: state) => {
+                        return <DetailView {...state} />
+                      })}
+
+                      <DetailView {...currentState} />
+                    </MDBCol>
+                  </MDBRow>
+                </div >
+              </div>
+
+            </MDBCol>
+            <MDBCol md="2"></MDBCol>
+
+          </ErrorBoundary>
+        </MDBRow>
+      </MDBContainer>
+    </div>
+  );
+
+};
+
+export default App;
