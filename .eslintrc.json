@@ -29,8 +29,9 @@
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }],
         "no-unused-vars" : ["warn"],
         "comma-dangle": ["error", "always-multiline"],
-        "linebreak-style": ["error", "windows"],
+        "linebreak-style": ["off"],
         "semi": ["error", "always"],
-        "max-len" : ["error", { "code": 150 }]
+        "max-len" : ["error", { "code": 150 }],
+        "no-console":"off"
     }
 }

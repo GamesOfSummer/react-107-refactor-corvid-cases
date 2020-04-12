@@ -7,23 +7,23 @@ import { fn, fd } from './util'
 export interface DetailProps { state: string, death: number, case: number, updated: string }
 
 function Details(props: any): any {
-    const death = props.props.death;
+  const death = props.props.death;
 
-    if (death !== 0) {
-        return (
+  if (death !== 0) {
+    return (
             <React.Fragment>
                 <span> Cases - {fn(props.props.case)} </span><br />
                 <span> Deaths - {fn(props.props.death)} </span><br />
                 <span> Last Updated - {fd(props.props.updated)} </span>
             </React.Fragment>
-        );
-    }
+    );
+  }
 
-    return '';
+  return '';
 }
 
 const DetailView = (props: DetailProps) => {
-    return (
+  return (
         <div >
             <MDBCard>
                 <div >
@@ -38,10 +38,10 @@ const DetailView = (props: DetailProps) => {
                 </MDBCardBody>
             </MDBCard>
         </div >
-    )
+  )
 }
 DetailView.propTypes = { props: PropTypes.object };
 DetailView.defaultProps = {
-    props: defaultState()
+  props: defaultState()
 };
 export default DetailView;
