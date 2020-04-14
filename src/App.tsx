@@ -10,7 +10,8 @@ import { state, defaultState } from './types';
 import DetailView from './DetailView';
 import Card from './Card';
 import { fn } from './util';
-import ErrorBoundary from './ErrorBoundary';
+
+
 // Redux things
 
 import { reducer } from './redux/reducer/reducer';
@@ -28,13 +29,6 @@ const App = () => {
 
   const [currentTotal, setTotal] = useState(0);
   const [currentDeath, setDeath] = useState(0);
-
-  const [hasError, setError] = useState(false);
-  // useEffect(() => {
-  //   if (hasError === true) {
-  //     throw new Error('I crashed');
-  //   }
-  // });
 
   const setActiveState = (e: any) => {
     const { id } = e.currentTarget;
@@ -86,7 +80,7 @@ const App = () => {
       setState({ ...sortedData[0] });
     } catch (error) {
       console.log(`Error occured on load.${error}`);
-      setError(true);
+     
     }
   }
 
@@ -109,8 +103,7 @@ const App = () => {
         <MDBContainer fluid>
           <MDBRow>
 
-            <ErrorBoundary>
-
+          
               <MDBCol md="2" />
               <MDBCol md="8">
                 <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: '#43e895' }}>
@@ -142,9 +135,12 @@ const App = () => {
                       </MDBCol>
                       <MDBCol md={divNumberRight as any} className="pl-0">
 
+                      {currentReduxState.map((state: state) => <div> state.name</div>)}
+
+{/*
                         {currentReduxState.map((state: state) => <DetailView {...state} />)}
 
-                        <DetailView {...currentState} />
+                         <DetailView {...currentState} /> */}
                       </MDBCol>
                     </MDBRow>
                   </div>
@@ -153,7 +149,7 @@ const App = () => {
               </MDBCol>
               <MDBCol md="2" />
 
-            </ErrorBoundary>
+           
           </MDBRow>
         </MDBContainer>
 
