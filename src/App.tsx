@@ -19,7 +19,19 @@ const App = () => {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
-// run fetch API
+  useEffect(() => {
+    async function fetchData() {
+        try {
+          let holder = fetchAPI();
+          console.log("f!!!etchData -> holder", holder);
+        } catch (e) {
+            console.error(e);
+        }
+    };
+    fetchData()
+}, []);;
+
+
 
 
   const [currentTotal, setTotal] = useState(0);
@@ -52,7 +64,9 @@ const App = () => {
 
   async function fetchAPI() {
     try {
-      const sortedData = await fetchAPIData();
+      console.log("!!!");
+      let sortedData = await fetchAPIData();
+      console.log("fetchAPI -> sortedData", sortedData);
 
       dispatch(addNewTask(sortedData));
 
@@ -73,8 +87,6 @@ const App = () => {
     divNumberLeft = '4';
     divNumberRight = '8';
   }
-
-
 
   return (
   

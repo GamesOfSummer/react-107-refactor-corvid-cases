@@ -3,14 +3,14 @@ import { state } from './types';
 
 
 async function fetchAPIData(): Promise<any> {
-  // let useAPIData = (): Promise<Array<state>> => {
-
+ 
   fetch(
     'https://finnhub.io/api/v1/covid19/us?token=bq2ft1nrh5rb332ppnug',
   )
     .then((resp) => resp.json())
     .then((data) => {
       const sortedData = data.sort((a: state, b: state) => b.case - a.case);
+      console.log("sortedData", sortedData);
 
       return sortedData.map((x: state) => ({
         index: x.index,

@@ -9,8 +9,12 @@ selectedState : 0,
 };
 
 export const reducer = (state = initialState, action: any) => {
+
     switch (action.type) {
         case 'ADDTASK':
+
+        if(action.value !== undefined)
+        {
             state.states.push({
                 index: (((1 + Math.random()) * 0x10000) | 0)
                     .toString(16)
@@ -21,7 +25,16 @@ export const reducer = (state = initialState, action: any) => {
                 updated: new Date()
 
             });
-            return { states: state.states };
+
+            console.log(action.value);
+
+            const holder = action.value;
+            return { ...state, holder};
+        }
+        
+        return state;
+
+        
         default:
             return state;
     }
