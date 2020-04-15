@@ -1,4 +1,6 @@
 const initialState = {
+selectedState : 0,
+
     states: [
 
         { index: '0', state: 'State 1', case: 0, death: 0, updated: new Date() },
