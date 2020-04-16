@@ -19,30 +19,48 @@ const App = () => {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    async function fetchData() {
-        try {
-          let holder = fetchAPI();
-          console.log("f!!!etchData -> holder", holder);
-        } catch (e) {
-            console.error(e);
-        }
-    };
-    fetchData()
-}, []);;
-
-
-
-
   const [currentTotal, setTotal] = useState(0);
   const [currentDeath, setDeath] = useState(0);
 
+
+useEffect(() => {
+  const fetchData = async () => {
+    const result = fetch(
+      'https://finnhub.io/api/v1/covid19/us?token=bq2ft1nrh5rb332ppnug',
+    )
+      .then((resp) => resp.json())
+      .then((data) => {
+        const sortedData = data.sort((a: state, b: state) => b.case - a.case);
+        const data2 = sortedData.map((x: state) => ({
+          index: x.index,
+          state: x.state,
+          case: x.case,
+          death: x.death,
+          updated: x.updated.toString(),
+        }));
+  
+
+        dispatch(addNewTask(data2));
+
+        const total = sortedData.reduce((a: number, b: state) => a + b.case, 0);
+        setTotal(total);
+        const deaths = sortedData.reduce((a: number, b: state) => a + b.death, 0);
+        setDeath(deaths);  
+      })
+      .catch((error) => {
+        console.log(`Error occured on load.${error}`);
+        throw new Error();
+      });
+  };
+  fetchData();
+}, []);
+
+
+
+
   const setActiveState = (e: any) => {
     const { id } = e.currentTarget;
-   
     dispatch(addNewTask(e));
-    
-    console.log(state);
   };
 
   const hasASelectedResturant = (): boolean => {
@@ -59,26 +77,6 @@ const App = () => {
     }
     return (`${S4() + S4()}-${S4()}-4${S4().substr(0, 3)}-${S4()}-${S4()}${S4()}${S4()}`).toLowerCase();
   };
-
-
-
-  async function fetchAPI() {
-    try {
-      console.log("!!!");
-      let sortedData = await fetchAPIData();
-      console.log("fetchAPI -> sortedData", sortedData);
-
-      dispatch(addNewTask(sortedData));
-
-      const total = sortedData.reduce((a: number, b: state) => a + b.case, 0);
-      setTotal(total);
-      const deaths = sortedData.reduce((a: number, b: state) => a + b.death, 0);
-      setDeath(deaths);
-
-    } catch (error) {
-      console.log(`Error occured on load.${error}`);
-    }
-  }
 
   let divNumberLeft = '12';
   let divNumberRight = '0';
@@ -138,8 +136,6 @@ const App = () => {
 
               </MDBCol>
               <MDBCol md="2" />
-
-           
           </MDBRow>
         </MDBContainer>
 

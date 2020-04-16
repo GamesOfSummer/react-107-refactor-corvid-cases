@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { addNewTask } from './redux/actions/actions';
 import { state } from './types';
+
 
 
 async function fetchAPIData(): Promise<any> {
@@ -12,13 +14,17 @@ async function fetchAPIData(): Promise<any> {
       const sortedData = data.sort((a: state, b: state) => b.case - a.case);
       console.log("sortedData", sortedData);
 
-      return sortedData.map((x: state) => ({
+      const data2 = sortedData.map((x: state) => ({
         index: x.index,
         state: x.state,
         case: x.case,
         death: x.death,
         updated: x.updated.toString(),
       }));
+
+
+      return data2;
+
     })
     .catch((error) => {
       console.log(`Error occured on load.${error}`);
