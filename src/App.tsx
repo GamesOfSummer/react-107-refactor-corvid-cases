@@ -22,7 +22,6 @@ const App = () => {
   const [currentTotal, setTotal] = useState(0);
   const [currentDeath, setDeath] = useState(0);
 
-
 useEffect(() => {
   const fetchData = async () => {
     const result = fetch(
@@ -40,22 +39,21 @@ useEffect(() => {
         }));
   
 
-        dispatch(addNewTask(data2));
 
         const total = sortedData.reduce((a: number, b: state) => a + b.case, 0);
         setTotal(total);
         const deaths = sortedData.reduce((a: number, b: state) => a + b.death, 0);
         setDeath(deaths);  
+
+        dispatch(addNewTask(data2));
       })
       .catch((error) => {
         console.log(`Error occured on load.${error}`);
-        throw new Error();
+        //throw new Error();
       });
   };
   fetchData();
 }, []);
-
-
 
 
   const setActiveState = (e: any) => {
@@ -92,8 +90,8 @@ useEffect(() => {
         <MDBContainer fluid>
           <MDBRow>
 
-              <MDBCol md="2" />
-              <MDBCol md="8">
+              <MDBCol md="1" />
+              <MDBCol md="10">
                 <MDBNavbar className="white-text" style={{ position: 'relative', height: '50px', backgroundColor: '#43e895' }}>
                   <MDBNavbarBrand style={{ position: 'absolute', left: '25%' }}>
                     <strong>
@@ -108,6 +106,7 @@ useEffect(() => {
                   </MDBNavbarBrand>
                 </MDBNavbar>
 
+
                 <div style={{ overflowX: 'hidden', overflowY: 'scroll', maxHeight: '650px' }}>
                   <div>
                     <MDBRow>
@@ -120,6 +119,13 @@ useEffect(() => {
                             <Card state={item} />
                           </div>
                         ))} */}
+
+                        // @ts-ignore
+                     {state.states.map((item, index) => (
+                          <div key={createGuid()} id={index.toString()} onClick={setActiveState}>
+                            <Card state={item} />
+                          </div>
+                        ))} 
 
                       </MDBCol>
                       <MDBCol md={divNumberRight as any} className="pl-0">
@@ -135,7 +141,7 @@ useEffect(() => {
                 </div>
 
               </MDBCol>
-              <MDBCol md="2" />
+              <MDBCol md="1" />
           </MDBRow>
         </MDBContainer>
 

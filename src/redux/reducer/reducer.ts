@@ -19,22 +19,18 @@ export const reducer = (state = initialState, action: any) => {
                 index: (((1 + Math.random()) * 0x10000) | 0)
                     .toString(16)
                     .substring(1),
-                state: action.text,
+                state: action.value.state,
                 case: 0,
                 death: 0,
                 updated: new Date()
 
             });
 
-            console.log(action.value);
-
-            const holder = action.value;
-            return { ...state, holder};
+            const holder = {states: action.value};
+            return { ...state, ...holder};
         }
         
         return state;
-
-        
         default:
             return state;
     }
